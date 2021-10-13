@@ -72,7 +72,7 @@ def search():
 		full_filename = os.path.join(app.config['UPLOAD_FOLDER'], '404.jpg')
 		storyList.append({'link': '/', 'thumbnail': full_filename, 'title': '404 - Not found'})
 
-	return render_template('search.html', storyList=storyList)
+	return render_template('search.html', storyList=storyList, query=query)
 
 @app.route('/read/<story>')
 def read(story):
@@ -81,12 +81,24 @@ def read(story):
 
 	soup = BeautifulSoup(page.content, "html.parser")
 	storyContent = soup.find(class_='one-whole cf')
+	thumbnail = soup.find(class_='ezlazyload')
 	content = ''
 	audio = soup.find(class_='player')['data-src']
 	title = story.replace('-', ' ').title()
+	src = 'data-ezsrc="' + str(thumbnail) + '"'
+	thumbnailSrc = thumbnail['src']
+
+	if thumbnail:
+		if not thumbnail.has_attr('data-ezsrc'):
+			thumbnail = thumbnail['src']
+		else:
+			thumbnail = thumbnail['data-ezsrc']
+	else:
+		thumbnail = os.path.join(app.config['UPLOAD_FOLDER'], '404.jpg')
+
+	src = 'data-ezsrc="' + str(thumbnail) + '"'
 
 	if audio:
-		print(len(audio))
 		response = requests.get(audio)
 		audio = response.url
 	else:
@@ -96,7 +108,10 @@ def read(story):
 		storyContent = storyContent.next_sibling
 		if storyContent == None: break
 		content += str(storyContent)
+		if src in content:
+			content = content.replace(src, '')
+			content = content.replace(thumbnailSrc, thumbnail)
 
-	return render_template('read.html', content=Markup(content), audio=audio, title=title)
+	return render_template('read.html', content=Markup(content), audio=audio, title=title, thumbnail=thumbnail)
 
 app.run(host='0.0.0.0', port=8080)

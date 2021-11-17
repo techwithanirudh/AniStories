@@ -1,0 +1,117 @@
+{% extends "blog/base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="content-section">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Blog Post</legend>
+      {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Post</button>
+      <button
+        style="float: right"
+        class="btn btn-outline-info"
+        type="button"
+        onclick="generate()"
+      >
+        Generate
+      </button>
+    </div>
+  </form>
+</div>
+<script>
+  const apiKey = "qRHRXXdTMY4N37HebpEAhtI1HrnuIscI";
+
+  async function getTextAI21(
+    URL = "https://api.ai21.com",
+    selectedModel = "j1-jumbo",
+    apiKey = undefined,
+    prompt = "Once apon a time",
+    numResults = 1,
+    maxTokens = 64,
+    temperature = 0
+  ) {
+    const payload = {
+      prompt: prompt,
+      numResults: numResults,
+      maxTokens: maxTokens,
+      temperature: temperature,
+    };
+
+    const completionParams = payload;
+
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(payload),
+    };
+
+    const start = new Date();
+    const response = await fetch(
+      `${URL}/studio/v1/${selectedModel}/complete`,
+      settings
+    );
+    if (response.ok) {
+      let payload = await response.json();
+      payload = payload["completions"][0]["data"]["text"];
+      const requestDuration = new Date().getTime() - start.getTime();
+      console.log({
+        type: "FETCH_COMPLETION_SUCCESS",
+        completionResponse: payload,
+        completionParams: completionParams,
+        requestDuration: requestDuration,
+      });
+
+      return {
+        type: "FETCH_COMPLETION_SUCCESS",
+        completionResponse: payload,
+        completionParams: completionParams,
+        requestDuration: requestDuration,
+      };
+    } else if (response.status === 422) {
+      var error = {
+        type: "FETCH_COMPLETION_FAILED",
+        reason: "CompletionFailureReason.TOO_MANY_TOKENS",
+        completionParams: completionParams,
+      };
+      console.error(error);
+      return error;
+    } else if (response.status === 429) {
+      var error = {
+        type: "FETCH_COMPLETION_FAILED",
+        reason: "CompletionFailureReason.QUOTA_EXCEEDED",
+        completionParams: completionParams,
+      };
+      console.error(error);
+      return error;
+    } else {
+      console.error(
+        "playground completion fetch failed: " + response.statusText
+      );
+      const error = {
+        type: "FETCH_COMPLETION_FAILED",
+        reason: "CompletionFailureReason.UNKNOWN_ERROR",
+        completionParams: completionParams,
+      };
+      console.error(error);
+      return error;
+    }
+  }
+
+  async function generate() {
+    let content = document.getElementById("id_content").value;
+    var response = await getTextAI21(
+      "https://api.ai21.com",
+      "j1-jumbo",
+      apiKey,
+      content
+    );
+    document.getElementById("id_content").value =
+      content + response["completionResponse"];
+  }
+</script>
+{% endblock content %}

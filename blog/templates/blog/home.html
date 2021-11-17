@@ -1,0 +1,278 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+ crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+ crossorigin="anonymous">
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+ crossorigin="anonymous">
+
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+ crossorigin="anonymous">
+
+</script>
+<!-- Section 1 -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AniKode Downloaded File
+</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" />
+<style>
+	a {
+		text-decoration: none;
+	}
+</style>
+<!-- <div class="absolute w-full h-32 bg-gradient-to-b from-gray-100 to-white"></div> -->
+<!-- <section class="w-full px-8 text-gray-700 bg-white">
+  <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+    <div class="relative flex flex-col md:flex-row">
+      <a href="{% url 'blog-home' %}" class="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0"><span class="mx-auto text-xl font-black leading-none text-gray-900 select-none">AniStories<span id="i7aju" data-highlightable="1" class="text-indigo-600">.</span></span></a>
+      <nav class="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
+        <a href="{% url 'blog-home' %}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
+        <a href="{% url 'blog-about' %}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
+      </nav>
+    </div>
+    <div class="inline-flex items-center ml-5 space-x-6 lg:justify-end">
+		    {% if user.is_authenticated %}
+				      <a href="{% url 'post-create' %}" class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+        New Post
+      </a>
+	  				      <a href="{% url 'profile' %}" class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+        Profile
+      </a>
+	  				      <a href="{% url 'logout' %}" class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+        Logout
+      </a>
+              {% else %}
+      <a href="{% url 'login' %}" class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+        Sign in
+      </a>
+      <a href="{% url 'register' %}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+        Sign up
+      </a>
+              {% endif %}
+
+    </div>
+  </div>
+</section> -->
+<section class="bg-white">
+    <div class="w-full px-5 py-6 mx-auto space-y-5 sm:py-8 md:py-12 sm:space-y-8 md:space-y-16 max-w-7xl">
+        <div class="flex flex-col items-center sm:px-5 md:flex-row">
+            <div class="w-full md:w-1-2">
+              <a href="{% url 'post-detail' posts.0.id %}" class="block"><img src="{{ posts.0.image.url }}" class="object-cover w-full h-full rounded-lg max-h-64 sm:max-h-96"/></a>
+            </div>
+            <div class="flex flex-col items-start justify-center w-full h-full py-6 mb-6 md:mb-0 md:w-1-2">
+              <div class="flex flex-col items-start justify-center h-full space-y-3 transform md:pl-10 lg:pl-16 md:space-y-5">
+                <div class="bg-pink-500 flex items-center pl-2 pr-3 py-1-5 leading-none rounded-full text-xs font-medium uppercase text-white inline-block">
+                  <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="w-3-5 h-3-5 mr-1">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                  <span>Featured</span>
+                </div>
+                <h1 class="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl">
+                  <a href="{% url 'post-detail' posts.0.id %}">{{ posts.0.title }}</a>
+                </h1>
+                <p class="pt-2 text-xs font-medium">
+                    <img
+                      class="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                      src="{{ posts.0.author.profile.image.url }}"
+                      alt="{{ posts.0.author }}"
+                    />
+                    <a href="#_" class="mr-1 underline"
+                      ><a
+                        id="ibohl-2"
+                        draggable="false"
+                        data-highlightable="1"
+                        href="{% url 'user-posts' posts.0.author.username %}"
+                        class="mr-1 underline"
+                        >{{ posts.0.author }}</a
+                      ></a
+                    >
+                    · <span class="mx-1">{{ posts.0.date_posted|date:"F d, Y" }}</span> ·
+                    <span class="mx-1 text-gray-600">x min. read</span>
+                  </p>
+              </div>
+            </div>
+          </div>
+        {% for post in posts %}
+		{% if post.title != posts.0.title  %}
+        <div class="flex grid grid-cols-12 pb-10 sm:px-5 gap-x-8 gap-y-16">
+            <div
+              class="
+                flex flex-col
+                items-start
+                col-span-12
+                space-y-3
+                sm:col-span-6
+                xl:col-span-4
+              "
+            >
+              <a href="{% url 'post-detail' post.id %}" class="block"
+                ><img
+                  src="{{ post.image.url }}"
+                  class="
+                    object-cover
+                    w-full
+                    mb-2
+                    overflow-hidden
+                    rounded-lg
+                    shadow-sm
+                    max-h-56
+                  "
+              /></a>
+              <div
+                class="
+                  bg-purple-500
+                  flex
+                  items-center
+                  px-3
+                  py-1-5
+                  leading-none
+                  rounded-full
+                  text-xs
+                  font-medium
+                  uppercase
+                  text-white
+                  inline-block
+                "
+              >
+                <span id="ilncd">TAG</span>
+              </div>
+              <h2 class="text-lg font-bold sm:text-xl md:text-2xl">
+                <a href="{% url 'post-detail' post.id %}" id="ic6ig"
+                  >{{ post.title }}</a
+                >
+              </h2>
+              <p class="text-sm text-gray-500">Description</p>
+              <p class="pt-2 text-xs font-medium">
+                <img
+                  class="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                  src="{{ post.author.profile.image.url }}"
+                  alt="{{ post.author }}"
+                />
+                <a href="#_" class="mr-1 underline"
+                  ><a
+                    id="ibohl-2"
+                    draggable="false"
+                    data-highlightable="1"
+                    href="{% url 'user-posts' post.author.username %}"
+                    class="mr-1 underline"
+                    >{{ post.author }}</a
+                  ></a
+                >
+                · <span class="mx-1">{{ post.date_posted|date:"F d, Y" }}</span> ·
+                <span class="mx-1 text-gray-600">x min. read</span>
+              </p>
+            </div>
+          </div>
+		{% endif %}
+        {% endfor %}
+        
+        {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+          <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+  
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+  
+        {% if page_obj.has_next %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+  
+      {% endif %}
+		<div
+        class="modal fade"
+        id="search"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="searchLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <form
+              id="search_form"
+			  action="/search"
+			  method="GET"
+              novalidate
+            >
+              <div class="modal-header">
+                <h5 class="modal-title" id="searchLabel">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="col-auto">
+                  <label for="name" class="form-label">Query</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="query"
+                    name="q"
+                    placeholder="Query to search"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please provide a valid name.
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm"
+                  data-dismiss="modal"
+                  onclick="clearForm()"
+                >
+                  Close
+                </button>
+                <div class="btn-group">
+                    <input class="btn btn-outline-info" id="search" type="submit" value="Search">
+                    <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" onclick="searchType(0)">Posts</a>
+                      <a class="dropdown-item" onclick="searchType(1)">Tags</a>
+                      <a class="dropdown-item" onclick="searchType(2)">User</a>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</section>
+<!-- AlpineJS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+	<!-- Needed JavaScript -->
+    <script>
+        function searchType(type) {
+          var types = ['/search', '/tag', '/user'];
+          var search_form = document.getElementById('search_form');
+          if (types[type] == types[2]){
+            document.getElementById('query').name = 'username';
+          } else {
+            document.getElementById('query').name = 'q';
+          }
+  
+          search_form.action = types[type];
+        }
+        searchType(0);
+        
+      </script>
+{% endblock content %}

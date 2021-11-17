@@ -24,15 +24,24 @@
 			width: 50%;
 			padding: 10px;
 		}
+
+		#toTopBtn {
+			display: none;
+			position: fixed;
+			bottom: 20px;
+			right: 30px;
+			z-index: 99;
+			padding: 15px;
+		}
 	</style>
 </head>
 
 <body>
 	<div class="bg-indigo-600">
-  <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between flex-wrap">
-      <div class="w-0 flex-1 flex items-center">
-        <span class="flex p-2 rounded-lg bg-indigo-800">
+		<div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+			<div class="flex items-center justify-between flex-wrap">
+				<div class="w-0 flex-1 flex items-center">
+					<span class="flex p-2 rounded-lg bg-indigo-800">
           <!-- Heroicon name: outline/speakerphone -->
           <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
@@ -407,6 +416,9 @@
         </div>
       </div>
     </main>
+			<button id="toTopBtn" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded-full md:rounded-lg" onclick="toTop()">
+  			Back to top
+		</button>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -448,6 +460,24 @@
       opened.classList.add("hidden");
     }
   });
+
+  //Get the button
+var toTopBtn = document.getElementById("toTopBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    toTopBtn.style.display = "block";
+  } else {
+    toTopBtn.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+		const toTop = () => window.scrollTo({top: 0, behavior: 'smooth'})
+
 </script>
   </body>
 </body>
